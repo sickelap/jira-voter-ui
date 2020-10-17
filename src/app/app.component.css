@@ -1,0 +1,13 @@
+header {
+  display: flex;
+  flex-direction: row;
+}
+
+.menu-item {
+  flex: 1 0 0;
+}
+
+.menu-item.user {
+  flex: auto;
+  text-align: right;
+}

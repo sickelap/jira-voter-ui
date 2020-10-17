@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiServer: 'http://localhost:5000',
+  jiraFieldEstimate: 'customfield_10106',
+  ws: 'http://localhost:5000'
 };
 
 /*
