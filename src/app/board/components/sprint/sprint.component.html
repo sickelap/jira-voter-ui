@@ -3,11 +3,6 @@
     <div class="name">{{ sprint.name }}</div>
     <div class="issue-count">{{ sprint.issues|count }} issues</div>
     <pp-label *ngIf="sprint.state=='active'" class="label-success">{{ sprint.state|titlecase }}</pp-label>
-<!--    <div class="chip-group right">-->
-<!--      <pp-chip class="chip-gray" title="Not Started: 3 of 12 (Story Points)">3</pp-chip>-->
-<!--      <pp-chip class="chip-blue" title="In Progress: 5 of 12 (Story Points)">5</pp-chip>-->
-<!--      <pp-chip class="chip-green" title="Done: 4 of 12 (Story Points)">4</pp-chip>-->
-<!--    </div>-->
     <div class="dates" *ngIf="sprint.state=='active'">
       <div class="date">{{ sprint.startDate | date:"d/MMM/y h:mm a" }}</div>
       <div class="divider">•</div>
