@@ -1,0 +1,11 @@
+<div class="issue-content">
+  <span class="type" title="{{ issue.fields.issuetype.name }}">
+    <img src="{{ issue.fields.issuetype.iconUrl }}">
+  </span>
+  <a href="javascript:void(0);" class="key" title="{{ issue.key }}">{{ issue.key }}</a>
+  <div class="summary" title="{{ issue.fields.summary }}">{{ issue.fields.summary }}</div>
+  <pp-label *ngIf="issue.fields.epic" class="{{ issue.fields.epic.color.key }}" title="{{ issue.fields.epic.name }}">{{ issue.fields.epic.name }}</pp-label>
+  <span class="estimate">
+    <pp-chip *ngIf="issue.fields[estimate]" title="Story Points">{{ issue.fields[estimate] }}</pp-chip>
+  </span>
+</div>

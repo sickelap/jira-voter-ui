@@ -1,3 +1,7 @@
-<pre>{{ board | json }}</pre>
-<pre>{{ sprints | json }}</pre>
-<pre>{{ backlog | json }}</pre>
+
+
+<div class="backlog-container">
+  <pp-sprint *ngFor="let sprint of sprints" [sprint]="sprint">
+    <pp-issue *ngFor="let issue of sprint.issues" [issue]="issue"></pp-issue>
+  </pp-sprint>
+</div>

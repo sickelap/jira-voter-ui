@@ -1,0 +1,42 @@
+.issue-content {
+  background: #fff;
+  box-shadow: 0 0 1px 0 rgba(9,30,66,0.31), 0 2px 4px -1px rgba(9,30,66,0.25);
+  border-radius: 2px;
+  color: #172b4d;
+  cursor: move;
+  font-size: 14px;
+  line-height: 1.42857143;
+  margin-top: -1px;
+  margin-bottom: 3px;
+  position: relative;
+  white-space: nowrap;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  height: 22px;
+  padding: 5px;
+  &:hover {
+    background: #ebecf0;
+  }
+}
+.type {
+  height: 16px;
+  width: 16px;
+}
+
+.key {
+  margin-left: 5px;
+}
+
+.summary {
+  overflow: hidden;
+  flex: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 2.5px;
+  margin-left: 5px;
+}
+
+.estimate {
+  width: 27px;
+}

@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -8,7 +8,17 @@ import { JiraSprint, JiraSprintIssueListResponse, JiraSprintListResponse } from 
 import { JiraBoard, JiraBoardListResponse } from '../models/jira-board';
 
 const issueFields = [
-  'id,key,summary,description,resolution,assignee,issuetype,reporter',
+  'id',
+  'key',
+  'summary',
+  'description',
+  'resolution',
+  'assignee',
+  'issuetype',
+  'reporter',
+  'epic',
+  'priority',
+  'status',
   environment.jiraFieldEstimate
 ].join(',');
 
@@ -29,7 +39,7 @@ export class JiraService {
     );
   }
 
-  getBoardSprints(boardId: string, includeIssues = false): Observable<any> {
+  getBoardSprints(boardId: string, includeIssues = false): Observable<JiraSprint[]> {
     const url = `${environment.apiServer}/api/v1/board/${boardId}/sprint`;
     const params = {
       state: 'active,future'
@@ -37,13 +47,12 @@ export class JiraService {
     const result = this.http.get<JiraSprintListResponse>(url, {params}).pipe(
       map(response => response.values)
     );
+    const enrichWithIssues = sprint => this.getSprintIssues(boardId, sprint).pipe(
+      map(issues => ({...sprint, issues}))
+    );
     if (includeIssues) {
       return result.pipe(
-        switchMap(sprints => sprints),
-        map(sprint => this.getSprintIssues(boardId, sprint).pipe(
-          map(issues => ({...sprint, issues}))
-        )),
-        mergeMap(a => a)
+        switchMap(sprints => combineLatest(sprints.map(enrichWithIssues)))
       );
     }
     return result;
@@ -64,7 +73,8 @@ export class JiraService {
   getSprintIssues(boardId: string, sprint: JiraSprint): Observable<JiraIssue[]> {
     const url = `${environment.apiServer}/api/v1/board/${boardId}/sprint/${sprint.id}/issue`;
     const params = {
-      fields: issueFields
+      fields: issueFields,
+      jql: 'issuetype not in(Sub-task, Task)'
     };
     return this.http.get<JiraSprintIssueListResponse>(url, {params}).pipe(
       map(response => response.issues)

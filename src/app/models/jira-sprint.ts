@@ -18,6 +18,8 @@ export interface JiraSprint {
   issues?: JiraIssue[];
 }
 
+export type JiraBacklog = JiraIssue[];
+
 export interface JiraSprintListResponse {
   maxResults: number;
   startAt: number;
@@ -30,5 +32,5 @@ export interface JiraSprintIssueListResponse {
   startAt: number;
   maxResults: number;
   total: number;
-  issues: any[];
+  issues: JiraIssue[];
 }

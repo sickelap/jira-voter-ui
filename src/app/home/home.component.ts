@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { JiraService } from '../services/jira.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'pp-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })

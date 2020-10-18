@@ -12,6 +12,14 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { BoardComponent } from './board/board.component';
 import { SocketIoModule } from 'ngx-socket-io';
 import { environment } from '../environments/environment';
+import { SprintComponent } from './board/components/sprint/sprint.component';
+import { IssueComponent } from './board/components/issue/issue.component';
+import { IssueDetailsComponent } from './board/components/issue-details/issue-details.component';
+import { AuiBadgeComponent } from './board/components/aui-badge/aui-badge.component';
+import { BacklogComponent } from './board/components/backlog/backlog.component';
+import { ChipComponent } from './board/components/chip/chip.component';
+import { LabelComponent } from './board/components/label/label.component';
+import { CountPipe } from './pipes/count.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +27,15 @@ import { environment } from '../environments/environment';
     LoginComponent,
     HomeComponent,
     NotFoundComponent,
-    BoardComponent
+    BoardComponent,
+    SprintComponent,
+    IssueComponent,
+    IssueDetailsComponent,
+    AuiBadgeComponent,
+    BacklogComponent,
+    ChipComponent,
+    LabelComponent,
+    CountPipe
   ],
   imports: [
     BrowserModule,
