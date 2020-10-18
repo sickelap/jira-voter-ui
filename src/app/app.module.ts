@@ -20,6 +20,8 @@ import { BacklogComponent } from './board/components/backlog/backlog.component';
 import { ChipComponent } from './board/components/chip/chip.component';
 import { LabelComponent } from './board/components/label/label.component';
 import { CountPipe } from './pipes/count.pipe';
+import { IssueDropdownComponent } from './board/components/issue-dropdown/issue-dropdown.component';
+import { IssueDropdownContainerDirective } from './board/components/issue-dropdown/issue-dropdown-container.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { CountPipe } from './pipes/count.pipe';
     BacklogComponent,
     ChipComponent,
     LabelComponent,
-    CountPipe
+    CountPipe,
+    IssueDropdownComponent,
+    IssueDropdownContainerDirective
   ],
   imports: [
     BrowserModule,

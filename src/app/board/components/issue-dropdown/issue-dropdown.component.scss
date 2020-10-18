@@ -1,0 +1,58 @@
+.pp-issue-dropdown {
+  width: 200px;
+  position: absolute;
+  box-shadow: 0 4px 8px -2px rgba(9,30,66,0.25), 0 0 1px rgba(9,30,66,0.31);
+  background-color: #fff;
+  border-radius: 3px;
+  margin-top: 3px;
+  min-width: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 12000;
+
+  h5 {
+    color: #172b4d;
+    display: block;
+    margin: 0;
+    padding: 3px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.46;
+    text-decoration: none;
+    text-transform: none;
+    &+ul {
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 2px 0;
+  border-top: 1px solid #c1c7d0;
+}
+
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+
+li > a {
+  display: block;
+  margin: 0;
+  padding: 3px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:link, &:visited {
+    color: #172b4d;
+    text-decoration: none;
+  }
+  &:hover {
+    background-color: #ebecf0;
+    color: #42526e;
+  }
+}
+
