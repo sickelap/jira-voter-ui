@@ -19,6 +19,7 @@ const issueFields = [
   'epic',
   'priority',
   'status',
+  'sprint',
   environment.jiraFieldEstimate
 ].join(',');
 

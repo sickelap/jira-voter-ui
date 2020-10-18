@@ -1,3 +1,5 @@
+import { JiraSprint } from './jira-sprint';
+
 export interface JiraIssueType {
   id: string;
   description: string;
@@ -71,6 +73,7 @@ export interface JiraIssue {
     epic: JiraIssueEpic;
     priority: JiraIssuePriority;
     status: JiraIssueStatus;
+    sprint: JiraSprint;
   };
 }
 
