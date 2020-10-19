@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JiraBoard } from '../models/jira-board';
 import { JiraService } from '../services/jira.service';
@@ -6,6 +6,12 @@ import { AuthService } from '../services/auth.service';
 import { RoomService } from '../services/room.service';
 import { JiraBacklog, JiraSprint } from '../models/jira-sprint';
 import { environment } from '../../environments/environment';
+import { JiraIssue } from '../models/jira-issue';
+import { ComponentType, Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { fromEvent, Subscription } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+import { IssueDropdownComponent } from './components/issue-dropdown/issue-dropdown.component';
 
 @Component({
   selector: 'pp-board',
@@ -19,8 +25,17 @@ export class BoardComponent implements OnInit {
   public sprintIssues: any;
   // @ts-ignore
   jiraFieldEstimate: environment.jiraFieldEstimate;
+  overlayRef: OverlayRef | null;
+  sub: Subscription;
+  issueContextMenu: ComponentPortal<IssueDropdownComponent>;
 
-  constructor(private jira: JiraService, private auth: AuthService, private route: ActivatedRoute, private room: RoomService) {
+  constructor(
+    private jira: JiraService,
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private room: RoomService,
+    public overlay: Overlay,
+  ) {
     this.board = this.route.snapshot.data.board;
     this.sprints = this.route.snapshot.data.sprints;
     this.backlog = this.route.snapshot.data.backlog;
@@ -29,5 +44,57 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.room.join(this.route.snapshot.params.boardId, this.auth.username);
+  }
+
+  getDestinationSprints(issue: JiraIssue): JiraSprint[] {
+    console.log('getting destination sprints', issue);
+    return [];
+  }
+
+  moveIssue(issue: JiraIssue, sprint: JiraSprint, bottom = true): void {
+    console.log('move issue', issue, sprint, bottom);
+  }
+
+  openIssueContextMenu(event: MouseEvent, issue: JiraIssue): void {
+    event.preventDefault();
+    this.closeIssueContextMenu();
+    const {x, y} = event;
+    const positionStrategy = this.overlay.position()
+      .flexibleConnectedTo({x, y})
+      .withPositions([
+        {
+          originX: 'end',
+          originY: 'bottom',
+          overlayX: 'end',
+          overlayY: 'top',
+        }
+      ]);
+
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+      scrollStrategy: this.overlay.scrollStrategies.close()
+    });
+
+    this.issueContextMenu = new ComponentPortal(IssueDropdownComponent);
+    this.overlayRef.attach(this.issueContextMenu);
+
+    this.sub = fromEvent<MouseEvent>(window, 'click')
+      .pipe(
+        filter(evt => {
+          const clickTarget = evt.target as HTMLElement;
+          return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
+        }),
+        take(1)
+      ).subscribe(() => this.closeIssueContextMenu());
+  }
+
+  closeIssueContextMenu(): void {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
   }
 }

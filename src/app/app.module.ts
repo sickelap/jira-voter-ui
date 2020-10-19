@@ -20,8 +20,8 @@ import { BacklogComponent } from './board/components/backlog/backlog.component';
 import { ChipComponent } from './board/components/chip/chip.component';
 import { LabelComponent } from './board/components/label/label.component';
 import { CountPipe } from './pipes/count.pipe';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { IssueDropdownComponent } from './board/components/issue-dropdown/issue-dropdown.component';
-import { IssueDropdownContainerDirective } from './board/components/issue-dropdown/issue-dropdown-container.directive';
 
 @NgModule({
   declarations: [
@@ -38,14 +38,14 @@ import { IssueDropdownContainerDirective } from './board/components/issue-dropdo
     ChipComponent,
     LabelComponent,
     CountPipe,
-    IssueDropdownComponent,
-    IssueDropdownContainerDirective
+    IssueDropdownComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    OverlayModule,
     SocketIoModule.forRoot({url: environment.ws})
   ],
   providers: [

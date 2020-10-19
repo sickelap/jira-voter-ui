@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { JiraIssue } from '../../../models/jira-issue';
 
 @Component({
@@ -6,12 +6,6 @@ import { JiraIssue } from '../../../models/jira-issue';
   templateUrl: './issue-dropdown.component.html',
   styleUrls: ['./issue-dropdown.component.scss']
 })
-export class IssueDropdownComponent implements OnInit {
+export class IssueDropdownComponent {
   @Input() issue: JiraIssue;
-  @Input() event: MouseEvent;
-  style = '';
-
-  ngOnInit(): void {
-    this.style = `left:${this.event.pageX}px;top:${this.event.pageY}px;`;
-  }
 }
