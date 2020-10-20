@@ -55,6 +55,7 @@ import { IssueDropdownComponent } from './board/components/issue-dropdown/issue-
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [IssueDropdownComponent]
 })
 export class AppModule { }

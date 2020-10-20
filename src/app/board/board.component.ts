@@ -1,4 +1,4 @@
-import { Component, ComponentRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, InjectionToken, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JiraBoard } from '../models/jira-board';
 import { JiraService } from '../services/jira.service';
@@ -7,11 +7,12 @@ import { RoomService } from '../services/room.service';
 import { JiraBacklog, JiraSprint } from '../models/jira-sprint';
 import { environment } from '../../environments/environment';
 import { JiraIssue } from '../models/jira-issue';
-import { ComponentType, Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { IssueDropdownComponent } from './components/issue-dropdown/issue-dropdown.component';
+import { ISSUE_CONTEXT_MENU_DATA } from '../tokens';
 
 @Component({
   selector: 'pp-board',
@@ -24,12 +25,12 @@ export class BoardComponent implements OnInit {
   public backlog: JiraBacklog;
   public sprintIssues: any;
   // @ts-ignore
-  jiraFieldEstimate: environment.jiraFieldEstimate;
   overlayRef: OverlayRef | null;
   sub: Subscription;
   issueContextMenu: ComponentPortal<IssueDropdownComponent>;
 
   constructor(
+    private injector: Injector,
     private jira: JiraService,
     private auth: AuthService,
     private route: ActivatedRoute,
@@ -44,15 +45,6 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.room.join(this.route.snapshot.params.boardId, this.auth.username);
-  }
-
-  getDestinationSprints(issue: JiraIssue): JiraSprint[] {
-    console.log('getting destination sprints', issue);
-    return [];
-  }
-
-  moveIssue(issue: JiraIssue, sprint: JiraSprint, bottom = true): void {
-    console.log('move issue', issue, sprint, bottom);
   }
 
   openIssueContextMenu(event: MouseEvent, issue: JiraIssue): void {
@@ -75,7 +67,10 @@ export class BoardComponent implements OnInit {
       scrollStrategy: this.overlay.scrollStrategies.close()
     });
 
-    this.issueContextMenu = new ComponentPortal(IssueDropdownComponent);
+    const injector = Injector.create({
+      providers: [{provide: ISSUE_CONTEXT_MENU_DATA, useValue: {sprints: this.sprints, issue}}]
+    });
+    this.issueContextMenu = new ComponentPortal(IssueDropdownComponent, null, injector);
     this.overlayRef.attach(this.issueContextMenu);
 
     this.sub = fromEvent<MouseEvent>(window, 'click')
