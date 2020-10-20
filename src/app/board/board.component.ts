@@ -12,6 +12,7 @@ import { fromEvent, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { IssueDropdownComponent } from './components/issue-dropdown/issue-dropdown.component';
 import { ISSUE_CONTEXT_MENU_DATA } from '../tokens';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'pp-board',
@@ -90,5 +91,9 @@ export class BoardComponent implements OnInit {
       this.overlayRef.dispose();
       this.overlayRef = null;
     }
+  }
+
+  drop(event: CdkDragDrop<JiraIssue[], any>): void {
+    console.log(event);
   }
 }

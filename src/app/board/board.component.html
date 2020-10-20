@@ -1,9 +1,17 @@
 <pp-sprint *ngFor="let sprint of sprints" [sprint]="sprint">
-  <pp-issue *ngFor="let issue of sprint.issues" [issue]="issue"
-            (contextmenu)="openIssueContextMenu($event, issue)"></pp-issue>
+  <div cdkDropList [cdkDropListData]="sprint.issues" (cdkDropListDropped)="drop($event)" class="drop-container">
+    <pp-issue cdkDrag *ngFor="let issue of sprint.issues" [issue]="issue"
+              (contextmenu)="openIssueContextMenu($event, issue)">
+      <div class="drop-placeholder" *cdkDragPlaceholder></div>
+    </pp-issue>
+  </div>
 </pp-sprint>
 
 <pp-backlog>
-  <pp-issue *ngFor="let issue of backlog" [issue]="issue"
-            (contextmenu)="openIssueContextMenu($event, issue, true)"></pp-issue>
+  <div cdkDropList [cdkDropListData]="backlog" (cdkDropListDropped)="drop($event)" class="drop-container">
+    <pp-issue cdkDrag *ngFor="let issue of backlog" [issue]="issue"
+              (contextmenu)="openIssueContextMenu($event, issue, true)">
+      <div class="drop-placeholder" *cdkDragPlaceholder></div>
+    </pp-issue>
+  </div>
 </pp-backlog>

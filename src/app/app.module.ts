@@ -22,6 +22,7 @@ import { LabelComponent } from './board/components/label/label.component';
 import { CountPipe } from './pipes/count.pipe';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { IssueDropdownComponent } from './board/components/issue-dropdown/issue-dropdown.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { IssueDropdownComponent } from './board/components/issue-dropdown/issue-
     ReactiveFormsModule,
     AppRoutingModule,
     OverlayModule,
+    DragDropModule,
     SocketIoModule.forRoot({url: environment.ws})
   ],
   providers: [
