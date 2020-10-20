@@ -17,9 +17,8 @@ export class IssueComponent {
     this.active = true;
   }
 
-  @HostListener('window:click', ['$event'])
-  onWindowContextMenu(event: Event): void {
-    event.stopPropagation();
+  @HostListener('window:click')
+  onWindowContextMenu(): void {
     this.active = false;
   }
 }
