@@ -1,11 +1,10 @@
-import { Component, InjectionToken, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JiraBoard } from '../models/jira-board';
 import { JiraService } from '../services/jira.service';
 import { AuthService } from '../services/auth.service';
 import { RoomService } from '../services/room.service';
 import { JiraBacklog, JiraSprint } from '../models/jira-sprint';
-import { environment } from '../../environments/environment';
 import { JiraIssue } from '../models/jira-issue';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -47,7 +46,7 @@ export class BoardComponent implements OnInit {
     this.room.join(this.route.snapshot.params.boardId, this.auth.username);
   }
 
-  openIssueContextMenu(event: MouseEvent, issue: JiraIssue, backlog: boolean): void {
+  openIssueContextMenu(event: MouseEvent, issue: JiraIssue, backlog = false): void {
     event.preventDefault();
     this.closeIssueContextMenu();
     const {x, y} = event;
