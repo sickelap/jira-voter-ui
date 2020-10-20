@@ -47,7 +47,7 @@ export class BoardComponent implements OnInit {
     this.room.join(this.route.snapshot.params.boardId, this.auth.username);
   }
 
-  openIssueContextMenu(event: MouseEvent, issue: JiraIssue): void {
+  openIssueContextMenu(event: MouseEvent, issue: JiraIssue, backlog: boolean): void {
     event.preventDefault();
     this.closeIssueContextMenu();
     const {x, y} = event;
@@ -68,7 +68,7 @@ export class BoardComponent implements OnInit {
     });
 
     const injector = Injector.create({
-      providers: [{provide: ISSUE_CONTEXT_MENU_DATA, useValue: {sprints: this.sprints, issue}}]
+      providers: [{provide: ISSUE_CONTEXT_MENU_DATA, useValue: {sprints: this.sprints, issue, backlog}}]
     });
     this.issueContextMenu = new ComponentPortal(IssueDropdownComponent, null, injector);
     this.overlayRef.attach(this.issueContextMenu);

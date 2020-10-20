@@ -1,11 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { JiraBacklog } from '../../../models/jira-sprint';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'pp-backlog',
   templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.css']
+  styleUrls: ['./backlog.component.scss']
 })
 export class BacklogComponent {
-  @Input() backlog: JiraBacklog;
 }

@@ -9,9 +9,13 @@ import { JiraSprint } from '../../../models/jira-sprint';
 })
 export class IssueDropdownComponent {
   constructor(@Inject(ISSUE_CONTEXT_MENU_DATA) public data: IssueContextMenuData) {
+    console.log(data);
   }
 
   get sprints(): JiraSprint[] {
+    if (this.data.backlog) {
+      return this.data.sprints;
+    }
     return this.data.sprints.filter(sprint => sprint.id !== this.data.issue.fields.sprint.id);
   }
 }

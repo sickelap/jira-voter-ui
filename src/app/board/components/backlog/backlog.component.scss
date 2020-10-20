@@ -1,0 +1,65 @@
+:host {
+    .backlog-container {
+        background-color: #f4f5f7;
+        border-radius: 4px;
+        border-color: transparent;
+        border-width: 0 0 2px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+    }
+    &:not(:first-child) .backlog-container {
+        margin-top: 20px;
+    }
+}
+
+.dates {
+    margin-top: 10px;
+    > * {
+        position: relative;
+        display: inline-block;
+        color: #505f79;
+    }
+    .divider {
+        margin: 0 5px;
+    }
+}
+
+.backlog-header {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+    background: #f4f5f7;
+    min-height: 42px;
+    padding-top: 6px;
+    padding-bottom: 9px;
+    border-radius: 0;
+    margin: 0 10px 5px 10px;
+
+    .name {
+        display: inline-block;
+        color: #172b4d;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1.5;
+        white-space: nowrap;
+    }
+    .issue-count {
+        color: #5e6c84;
+        margin-left: 10px;
+        display: inline-block;
+    }
+    pp-label {
+        margin-left: 10px;
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: 700;
+    }
+}
+
+.issues {
+    margin: 0 10px;
+    padding-bottom: 20px;
+}

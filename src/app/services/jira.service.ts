@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { JiraIssue, JiraIssueListResponse } from '../models/jira-issue';
-import { JiraSprint, JiraSprintIssueListResponse, JiraSprintListResponse } from '../models/jira-sprint';
+import { JiraBacklog, JiraSprint, JiraSprintIssueListResponse, JiraSprintListResponse } from '../models/jira-sprint';
 import { JiraBoard, JiraBoardListResponse } from '../models/jira-board';
 
 const issueFields = [
@@ -36,7 +36,7 @@ export class JiraService {
       fields: issueFields
     };
     return this.http.get<JiraIssueListResponse>(url, {params}).pipe(
-      map(response => response.issues)
+      map(response => response.issues.filter(issue => !issue.fields.sprint && !issue.fields.resolution))
     );
   }
 

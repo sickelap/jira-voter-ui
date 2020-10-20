@@ -1,6 +1,9 @@
-<div class="backlog-container">
-  <pp-sprint *ngFor="let sprint of sprints" [sprint]="sprint">
-    <pp-issue *ngFor="let issue of sprint.issues" [issue]="issue"
-              (contextmenu)="openIssueContextMenu($event, issue)"></pp-issue>
-  </pp-sprint>
-</div>
+<pp-sprint *ngFor="let sprint of sprints" [sprint]="sprint">
+  <pp-issue *ngFor="let issue of sprint.issues" [issue]="issue"
+            (contextmenu)="openIssueContextMenu($event, issue)"></pp-issue>
+</pp-sprint>
+
+<pp-backlog>
+  <pp-issue *ngFor="let issue of backlog" [issue]="issue"
+            (contextmenu)="openIssueContextMenu($event, issue, true)"></pp-issue>
+</pp-backlog>
