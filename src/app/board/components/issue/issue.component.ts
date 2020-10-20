@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { JiraIssue } from '../../../models/jira-issue';
 import { environment } from '../../../../environments/environment';
 
@@ -9,5 +9,17 @@ import { environment } from '../../../../environments/environment';
 })
 export class IssueComponent {
   @Input() issue: JiraIssue;
+  active = false;
   estimate = environment.jiraFieldEstimate;
+
+  @HostListener('contextmenu')
+  onContextMenu(): void {
+    this.active = true;
+  }
+
+  @HostListener('window:click', ['$event'])
+  onWindowContextMenu(event: Event): void {
+    event.stopPropagation();
+    this.active = false;
+  }
 }
