@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { ISSUE_CONTEXT_MENU_DATA, IssueContextMenuData } from '../../../tokens';
-import { JiraSprint } from '../../../models/jira-sprint';
+import { ISSUE_CONTEXT_MENU_DATA, IssueContextMenuData } from '../../app/tokens';
+import { JiraSprint } from '../../models/jira-sprint';
 
 @Component({
   selector: 'pp-issue-dropdown',

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { JiraSprint } from '../../../models/jira-sprint';
+import { JiraSprint } from '../../models/jira-sprint';
 
 @Component({
   selector: 'pp-sprint',

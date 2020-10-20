@@ -1,17 +1,17 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JiraBoard } from '../models/jira-board';
-import { JiraService } from '../services/jira.service';
-import { AuthService } from '../services/auth.service';
-import { RoomService } from '../services/room.service';
-import { JiraBacklog, JiraSprint } from '../models/jira-sprint';
-import { JiraIssue } from '../models/jira-issue';
+import { JiraBoard } from '../../models/jira-board';
+import { JiraService } from '../../services/jira.service';
+import { AuthService } from '../../services/auth.service';
+import { RoomService } from '../../services/room.service';
+import { JiraBacklog, JiraSprint } from '../../models/jira-sprint';
+import { JiraIssue } from '../../models/jira-issue';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { IssueDropdownComponent } from './components/issue-dropdown/issue-dropdown.component';
-import { ISSUE_CONTEXT_MENU_DATA } from '../tokens';
+import { IssueDropdownComponent } from '../../components/issue-dropdown/issue-dropdown.component';
+import { ISSUE_CONTEXT_MENU_DATA } from '../../app/tokens';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({

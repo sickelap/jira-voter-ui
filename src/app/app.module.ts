@@ -3,26 +3,25 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { JwtInterceptor } from './services/jwt.interceptor';
-import { BoardComponent } from './board/board.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SocketIoModule } from 'ngx-socket-io';
 import { environment } from '../environments/environment';
-import { SprintComponent } from './board/components/sprint/sprint.component';
-import { IssueComponent } from './board/components/issue/issue.component';
-import { IssueDetailsComponent } from './board/components/issue-details/issue-details.component';
-import { AuiBadgeComponent } from './board/components/aui-badge/aui-badge.component';
-import { BacklogComponent } from './board/components/backlog/backlog.component';
-import { ChipComponent } from './board/components/chip/chip.component';
-import { LabelComponent } from './board/components/label/label.component';
-import { CountPipe } from './pipes/count.pipe';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { IssueDropdownComponent } from './board/components/issue-dropdown/issue-dropdown.component';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CountPipe } from '../pipes/count.pipe';
+import { BoardComponent } from '../pages/board/board.component';
+import { SprintComponent } from '../components/sprint/sprint.component';
+import { IssueComponent } from '../components/issue/issue.component';
+import { IssueDetailsComponent } from '../components/issue-details/issue-details.component';
+import { LabelComponent } from '../components/label/label.component';
+import { IssueDropdownComponent } from '../components/issue-dropdown/issue-dropdown.component';
+import { JwtInterceptor } from '../services/jwt.interceptor';
+import { LoginComponent } from '../pages/login/login.component';
+import { HomeComponent } from '../pages/home/home.component';
+import { NotFoundComponent } from '../pages/not-found/not-found.component';
+import { BacklogComponent } from '../components/backlog/backlog.component';
+import { ChipComponent } from '../components/chip/chip.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SprintComponent,
     IssueComponent,
     IssueDetailsComponent,
-    AuiBadgeComponent,
     BacklogComponent,
     ChipComponent,
     LabelComponent,

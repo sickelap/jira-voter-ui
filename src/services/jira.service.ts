@@ -2,10 +2,10 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { JiraIssue, JiraIssueListResponse } from '../models/jira-issue';
-import { JiraBacklog, JiraSprint, JiraSprintIssueListResponse, JiraSprintListResponse } from '../models/jira-sprint';
+import { JiraSprint, JiraSprintIssueListResponse, JiraSprintListResponse } from '../models/jira-sprint';
 import { JiraBoard, JiraBoardListResponse } from '../models/jira-board';
+import { environment } from '../environments/environment';
 
 const issueFields = [
   'id',

@@ -1,6 +1,6 @@
 import { Component, HostListener, Input } from '@angular/core';
-import { JiraIssue } from '../../../models/jira-issue';
-import { environment } from '../../../../environments/environment';
+import { JiraIssue } from '../../models/jira-issue';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'pp-issue',

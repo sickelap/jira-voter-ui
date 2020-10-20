@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthPayload, AuthResponse } from '../models/auth';
+import { environment } from '../environments/environment';
 
 function extractUsernameFromToken(token): string {
   try {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { JiraBoard } from '../models/jira-board';
 import { Observable } from 'rxjs';
-import { JiraService } from '../services/jira.service';
+import { JiraBoard } from '../../models/jira-board';
+import { JiraService } from '../../services/jira.service';
 
 @Component({
   selector: 'pp-home',
