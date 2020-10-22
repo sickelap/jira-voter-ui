@@ -5,12 +5,6 @@ import { JiraService } from '../../services/jira.service';
 import { AuthService } from '../../services/auth.service';
 import { JiraBacklog, JiraSprint } from '../../models/jira-sprint';
 import { JiraIssue } from '../../models/jira-issue';
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { fromEvent, Subscription } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { IssueDropdownComponent } from '../../components/issue-dropdown/issue-dropdown.component';
-import { ISSUE_CONTEXT_MENU_DATA } from '../../app/tokens';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -23,68 +17,17 @@ export class BoardComponent {
   public sprints: JiraSprint[];
   public backlog: JiraBacklog;
   public sprintIssues: any;
-  // @ts-ignore
-  overlayRef: OverlayRef | null;
-  sub: Subscription;
-  issueContextMenu: ComponentPortal<IssueDropdownComponent>;
 
   constructor(
     private injector: Injector,
     private jira: JiraService,
     private auth: AuthService,
-    private route: ActivatedRoute,
-    public overlay: Overlay,
+    private route: ActivatedRoute
   ) {
     this.board = this.route.snapshot.data.board;
     this.sprints = this.route.snapshot.data.sprints;
     this.backlog = this.route.snapshot.data.backlog;
     this.sprintIssues = this.jira.getSprintIssues(this.board.id.toString(), {id: 1} as any);
-  }
-
-  openIssueContextMenu(event: MouseEvent, issue: JiraIssue, backlog = false): void {
-    event.preventDefault();
-    this.closeIssueContextMenu();
-    const {x, y} = event;
-    const positionStrategy = this.overlay.position()
-      .flexibleConnectedTo({x, y})
-      .withPositions([
-        {
-          originX: 'end',
-          originY: 'bottom',
-          overlayX: 'end',
-          overlayY: 'top',
-        }
-      ]);
-
-    this.overlayRef = this.overlay.create({
-      positionStrategy,
-      scrollStrategy: this.overlay.scrollStrategies.close()
-    });
-
-    const injector = Injector.create({
-      providers: [{provide: ISSUE_CONTEXT_MENU_DATA, useValue: {sprints: this.sprints, issue, backlog}}]
-    });
-    this.issueContextMenu = new ComponentPortal(IssueDropdownComponent, null, injector);
-    this.overlayRef.attach(this.issueContextMenu);
-
-    this.sub = fromEvent<MouseEvent>(window, 'click')
-      .pipe(
-        filter(evt => {
-          const clickTarget = evt.target as HTMLElement;
-          return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
-        }),
-        take(1)
-      ).subscribe(() => this.closeIssueContextMenu());
-  }
-
-  closeIssueContextMenu(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
-    }
   }
 
   drop(event: CdkDragDrop<JiraIssue[], any>): void {

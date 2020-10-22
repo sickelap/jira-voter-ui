@@ -22,6 +22,10 @@ import { HomeComponent } from '../pages/home/home.component';
 import { NotFoundComponent } from '../pages/not-found/not-found.component';
 import { BacklogComponent } from '../components/backlog/backlog.component';
 import { ChipComponent } from '../components/chip/chip.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,11 @@ import { ChipComponent } from '../components/chip/chip.component';
     AppRoutingModule,
     OverlayModule,
     DragDropModule,
-    SocketIoModule.forRoot({url: environment.ws})
+    SocketIoModule.forRoot({url: environment.ws}),
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot(),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     {

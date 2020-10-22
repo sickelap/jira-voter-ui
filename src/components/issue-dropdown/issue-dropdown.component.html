@@ -4,10 +4,20 @@
       <h5>Send to</h5>
       <ul>
         <li *ngFor="let sprint of sprints">
-          <a title="{{ sprint.name }}" href="javascript:void(0);">{{ sprint.name }}</a>
+          <a title="{{ sprint.name }}" href="javascript:void(0);" (click)="moveIssue(sprint, -1)">
+            {{ sprint.name }}
+          </a>
         </li>
-        <li><a title="Top of Backlog" href="javascript:void(0);">Top of Backlog</a></li>
-        <li><a title="Bottom of Backlog" href="javascript:void(0);">Bottom of Backlog</a></li>
+        <li>
+          <a title="Top of Backlog" href="javascript:void(0);" (click)="moveIssue(null, 0)">
+            Top of Backlog
+          </a>
+        </li>
+        <li>
+          <a title="Bottom of Backlog" href="javascript:void(0);" (click)="moveIssue(null, -1)">
+            Bottom of Backlog
+          </a>
+        </li>
       </ul>
       <ul class="aui-list-section aui-first ">
         <li><a title="Delete" href="javascript:void(0);">Delete</a></li>
