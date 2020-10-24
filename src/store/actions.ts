@@ -2,17 +2,14 @@ import { createAction, props } from '@ngrx/store';
 import { JiraSprint } from '../models/jira-sprint';
 import { JiraIssue } from '../models/jira-issue';
 
-export const moveIssue = createAction(
-  '[Jira] Move Issue',
-  props<{issue: JiraIssue, sprint: JiraSprint, position: number}>()
-);
+export class AppActions {
+  static moveIssue = createAction('[Jira] Move Issue',
+    props<{issue: JiraIssue, sprint: JiraSprint, position: number}>());
 
-export const openIssueContextMenu = createAction(
-  '[Voter] Open ContextMenu',
-  props<{issue: JiraIssue}>()
-);
+  static openIssueContextMenu = createAction('[Voter] Open ContextMenu',
+    props<{event: MouseEvent, sprints: JiraSprint[], issue: JiraIssue, isBacklog: boolean}>());
 
-export const closeIssueContextMenu = createAction(
-  '[Voter] Close ContextMenu',
-  props<{issue: JiraIssue}>()
-);
+  static error = createAction('[Voter] Error', props<{error: string}>());
+
+  static closeIssueContextMenu = createAction('[Voter] Close ContextMenu');
+}

@@ -3,7 +3,8 @@ import { ISSUE_CONTEXT_MENU_DATA, IssueContextMenuData } from '../../app/tokens'
 import { JiraSprint } from '../../models/jira-sprint';
 import { AppState } from '../../store/reducer';
 import { Store } from '@ngrx/store';
-import { moveIssue } from '../../store/actions';
+import { AppActions } from '../../store/actions';
+import { MoveTo } from '../../models/jira-issue';
 
 @Component({
   selector: 'pp-issue-dropdown',
@@ -11,8 +12,10 @@ import { moveIssue } from '../../store/actions';
   styleUrls: ['./issue-dropdown.component.scss']
 })
 export class IssueDropdownComponent {
+  TOP = MoveTo.TOP;
+  BOTTOM = MoveTo.BOTTOM;
+
   constructor(@Inject(ISSUE_CONTEXT_MENU_DATA) public data: IssueContextMenuData, private store: Store<AppState>) {
-    console.log(data);
   }
 
   get sprints(): JiraSprint[] {
@@ -22,7 +25,8 @@ export class IssueDropdownComponent {
     return this.data.sprints.filter(sprint => sprint.id !== this.data.issue.fields.sprint.id);
   }
 
-  moveIssue(sprint: JiraSprint | null, position = 0): void {
-    this.store.dispatch(moveIssue({issue: this.data.issue, sprint, position}));
+  moveIssue(sprint: JiraSprint | null, position: MoveTo): void {
+    this.store.dispatch(AppActions.moveIssue({issue: this.data.issue, sprint, position}));
+    this.store.dispatch(AppActions.closeIssueContextMenu());
   }
 }

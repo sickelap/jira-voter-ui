@@ -1,7 +1,7 @@
 import { JiraBoard } from '../models/jira-board';
 import { JiraBacklog, JiraSprint } from '../models/jira-sprint';
 import { createReducer, on } from '@ngrx/store';
-import * as actions from './actions';
+import { AppActions } from './actions';
 
 export interface AppState {
   board: JiraBoard;
@@ -24,6 +24,6 @@ export const initialState: State = {
 
 const uiReducer = createReducer(
   initialState.ui,
-  on(actions.openIssueContextMenu, state => ({...state, contextMenuVisible: true })),
-  on(actions.closeIssueContextMenu, state => ({...state, contextMenuVisible: false })),
+  on(AppActions.openIssueContextMenu, state => ({...state, contextMenuVisible: true })),
+  on(AppActions.closeIssueContextMenu, state => ({...state, contextMenuVisible: false })),
 );

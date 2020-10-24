@@ -26,6 +26,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AppEffects } from '../store/effects';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     DragDropModule,
     SocketIoModule.forRoot({url: environment.ws}),
     StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],

@@ -6,6 +6,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { IssueDropdownComponent } from './issue-dropdown.component';
 import { fromEvent, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { JiraSprint } from '../../models/jira-sprint';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,9 @@ export class IssueDropdownService {
   constructor(private overlay: Overlay) {
   }
 
-  open(event: MouseEvent, issue: JiraIssue, backlog = false): void {
+  open(event: MouseEvent, sprints: JiraSprint[], issue: JiraIssue, backlog = false): void {
     event.preventDefault();
-    this.closeIssueContextMenu();
+    this.close();
     const {x, y} = event;
     const positionStrategy = this.overlay.position()
       .flexibleConnectedTo({x, y})
@@ -39,7 +40,7 @@ export class IssueDropdownService {
     });
 
     const injector = Injector.create({
-      providers: [{provide: ISSUE_CONTEXT_MENU_DATA, useValue: {sprints: this.sprints, issue, backlog}}]
+      providers: [{provide: ISSUE_CONTEXT_MENU_DATA, useValue: {sprints, issue, backlog}}]
     });
     this.issueContextMenu = new ComponentPortal(IssueDropdownComponent, null, injector);
     this.overlayRef.attach(this.issueContextMenu);
@@ -51,10 +52,10 @@ export class IssueDropdownService {
           return !!this.overlayRef && !this.overlayRef.overlayElement.contains(clickTarget);
         }),
         take(1)
-      ).subscribe(() => this.closeIssueContextMenu());
+      ).subscribe(() => this.close());
   }
 
-  closeIssueContextMenu(): void {
+  close(): void {
     if (this.sub) {
       this.sub.unsubscribe();
     }
@@ -63,5 +64,4 @@ export class IssueDropdownService {
       this.overlayRef = null;
     }
   }
-
 }

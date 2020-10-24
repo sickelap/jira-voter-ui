@@ -84,3 +84,7 @@ export interface JiraIssueListResponse {
   total: number;
   issues: JiraIssue[];
 }
+
+export enum MoveTo {
+  TOP, BOTTOM
+}
