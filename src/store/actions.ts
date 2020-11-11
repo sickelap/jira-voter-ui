@@ -12,4 +12,6 @@ export class AppActions {
   static error = createAction('[Voter] Error', props<{error: string}>());
 
   static closeIssueContextMenu = createAction('[Voter] Close ContextMenu');
+
+  static moveIssueSuccess = createAction('[Jira] Move Issue Success', props<any>());
 }

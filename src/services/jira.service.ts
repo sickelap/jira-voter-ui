@@ -2,7 +2,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JiraIssue, JiraIssueListResponse } from '../models/jira-issue';
+import { JiraIssue, JiraIssueListResponse, MoveTo } from '../models/jira-issue';
 import { JiraSprint, JiraSprintIssueListResponse, JiraSprintListResponse } from '../models/jira-sprint';
 import { JiraBoard, JiraBoardListResponse } from '../models/jira-board';
 import { environment } from '../environments/environment';
@@ -31,9 +31,10 @@ export class JiraService {
   }
 
   getBoardBacklogIssues(boardId: string): Observable<JiraIssue[]> {
-    const url = `${environment.apiServer}/api/v1/board/${boardId}/issue`;
+    const url = `${environment.apiServer}/jira/rest/agile/1.0/board/${boardId}/issue`;
     const params = {
-      fields: issueFields
+      fields: issueFields,
+      jql: 'issuetype not in(Sub-task,Task)'
     };
     return this.http.get<JiraIssueListResponse>(url, {params}).pipe(
       map(response => response.issues.filter(issue => !issue.fields.sprint && !issue.fields.resolution))
@@ -41,7 +42,7 @@ export class JiraService {
   }
 
   getBoardSprints(boardId: string, includeIssues = false): Observable<JiraSprint[]> {
-    const url = `${environment.apiServer}/api/v1/board/${boardId}/sprint`;
+    const url = `${environment.apiServer}/jira/rest/agile/1.0/board/${boardId}/sprint`;
     const params = {
       state: 'active,future'
     };
@@ -60,25 +61,38 @@ export class JiraService {
   }
 
   getBoards(): Observable<JiraBoard[]> {
-    const url = `${environment.apiServer}/api/v1/board`;
+    const url = `${environment.apiServer}/jira/rest/agile/1.0/board`;
     return this.http.get<JiraBoardListResponse>(url).pipe(
       map(response => response.values)
     );
   }
 
   getBoard(boardId: string): Observable<JiraBoard> {
-    const url = `${environment.apiServer}/api/v1/board/${boardId}`;
+    const url = `${environment.apiServer}/jira/rest/agile/1.0/board/${boardId}`;
     return this.http.get<JiraBoard>(url);
   }
 
   getSprintIssues(boardId: string, sprint: JiraSprint): Observable<JiraIssue[]> {
-    const url = `${environment.apiServer}/api/v1/board/${boardId}/sprint/${sprint.id}/issue`;
+    const url = `${environment.apiServer}/jira/rest/agile/1.0/board/${boardId}/sprint/${sprint.id}/issue`;
     const params = {
       fields: issueFields,
-      jql: 'issuetype not in(Sub-task, Task)'
+      jql: 'issuetype not in(Sub-task,Task)'
     };
     return this.http.get<JiraSprintIssueListResponse>(url, {params}).pipe(
       map(response => response.issues)
     );
+  }
+
+  moveIssueToSprint(issue: JiraIssue, sprint: JiraSprint, position = MoveTo.BOTTOM): Observable<any> {
+    const url = `${environment.apiServer}/jira/rest/agile/1.0/sprint/${sprint.id}/issue`;
+    const payload = {
+      issues: [issue.key]
+    };
+    // if (position === MoveTo.BOTTOM) {
+    //   payload = {...payload, rankAfterIssue: sprint.issues[sprint.issues.length - 1].key};
+    // } else {
+    //   payload = {...payload, rankBeforeIssue: sprint.issues[0].key};
+    // }
+    return this.http.post(url, payload);
   }
 }
