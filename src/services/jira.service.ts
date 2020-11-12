@@ -2,7 +2,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JiraIssue, JiraIssueListResponse, MoveTo } from '../models/jira-issue';
+import { JiraIssue, JiraIssueListResponse, MoveIssueDTO, MoveTo } from '../models/jira-issue';
 import { JiraSprint, JiraSprintIssueListResponse, JiraSprintListResponse } from '../models/jira-sprint';
 import { JiraBoard, JiraBoardListResponse } from '../models/jira-board';
 import { environment } from '../environments/environment';
@@ -83,16 +83,16 @@ export class JiraService {
     );
   }
 
-  moveIssueToSprint(issue: JiraIssue, sprint: JiraSprint, position = MoveTo.BOTTOM): Observable<any> {
-    const url = `${environment.apiServer}/jira/rest/agile/1.0/sprint/${sprint.id}/issue`;
+  moveIssueToSprint(move: MoveIssueDTO): Observable<MoveIssueDTO> {
+    const url = `${environment.apiServer}/jira/rest/agile/1.0/sprint/${move.toSprint.id}/issue`;
     const payload = {
-      issues: [issue.key]
+      issues: [move.issue.key]
     };
     // if (position === MoveTo.BOTTOM) {
     //   payload = {...payload, rankAfterIssue: sprint.issues[sprint.issues.length - 1].key};
     // } else {
     //   payload = {...payload, rankBeforeIssue: sprint.issues[0].key};
     // }
-    return this.http.post(url, payload);
+    return this.http.post(url, payload).pipe(map(() => move));
   }
 }

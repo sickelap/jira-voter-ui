@@ -4,7 +4,7 @@ import { JiraSprint } from '../../models/jira-sprint';
 import { AppState } from '../../store/reducer';
 import { Store } from '@ngrx/store';
 import { AppActions } from '../../store/actions';
-import { MoveTo } from '../../models/jira-issue';
+import { MoveIssueDTO, MoveTo } from '../../models/jira-issue';
 
 @Component({
   selector: 'pp-issue-dropdown',
@@ -26,7 +26,12 @@ export class IssueDropdownComponent {
   }
 
   moveIssue(sprint: JiraSprint | null, position: MoveTo): void {
-    this.store.dispatch(AppActions.moveIssue({issue: this.data.issue, sprint, position}));
+    const move: MoveIssueDTO = {
+      issue: this.data.issue,
+      toSprint: sprint,
+      toPosition: position
+    };
+    this.store.dispatch(AppActions.moveIssue(move));
     this.store.dispatch(AppActions.closeIssueContextMenu());
   }
 }

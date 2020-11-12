@@ -25,7 +25,7 @@ export class AppEffects {
 
   moveIssueToSprint$ = createEffect(() => this.actions.pipe(
     ofType(AppActions.moveIssue),
-    switchMap(action => this.jira.moveIssueToSprint(action.issue, action.sprint, action.position)),
+    switchMap(action => this.jira.moveIssueToSprint(action)),
     map(result => AppActions.moveIssueSuccess(result)),
     catchError(error => of(AppActions.error(error)))
   ));

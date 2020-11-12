@@ -88,3 +88,9 @@ export interface JiraIssueListResponse {
 export enum MoveTo {
   TOP, BOTTOM
 }
+
+export interface MoveIssueDTO {
+  issue: JiraIssue;
+  toSprint: JiraSprint;
+  toPosition: MoveTo;
+}
