@@ -1,35 +1,6 @@
-import { JiraBoard } from '../models/jira-board';
-import { JiraBacklog, JiraSprint } from '../models/jira-sprint';
 import { createReducer, on } from '@ngrx/store';
 import { AppActions } from './actions';
-
-export interface UIState {
-  contextMenuVisible: boolean;
-}
-
-export interface BoardState {
-  list: JiraBoard[];
-  current: JiraBoard;
-  sprints: JiraSprint[];
-  backlog: JiraBacklog;
-}
-
-export interface AppState {
-  ui: UIState;
-  board: BoardState;
-}
-
-export const initialState: AppState = {
-  ui: {
-    contextMenuVisible: false
-  },
-  board: {
-    list: [],
-    current: null,
-    sprints: [],
-    backlog: null
-  },
-};
+import { BoardState, initialState, UIState } from './state';
 
 export function uiReducer(state: UIState, action): UIState {
   return createReducer(
@@ -48,8 +19,3 @@ export function boardReducer(state: BoardState, action): BoardState {
     on(AppActions.backlogLoaded, (st, {backlog}) => ({...st, backlog})),
   )(state, action);
 }
-
-export const getAllBoards = (state: AppState) => state.board.list;
-export const getCurrentBoard = (state: AppState) => state.board.current;
-export const getSprints = (state: AppState) => state.board.sprints;
-export const getBacklog = (state: AppState) => state.board.backlog;

@@ -6,7 +6,7 @@ import { IssueDropdownService } from '../components/issue-dropdown/issue-dropdow
 import { concat, of } from 'rxjs';
 import { JiraService } from '../services/jira.service';
 import { Store } from '@ngrx/store';
-import { getCurrentBoard, getSprints } from './reducer';
+import { getCurrentBoard, getSprints } from './selectors';
 
 @Injectable()
 export class AppEffects {
@@ -33,7 +33,7 @@ export class AppEffects {
   moveIssueSuccess$ = createEffect(() => this.actions.pipe(
     ofType(AppActions.moveIssueSuccess),
     withLatestFrom(this.store.select(getCurrentBoard)),
-    switchMap(([action, board]) => concat([
+    switchMap(([_, board]) => concat([
       AppActions.loadSprints({boardId: board.id.toString()}),
       AppActions.loadBacklog({boardId: board.id.toString()})
     ]))

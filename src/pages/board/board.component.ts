@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JiraBacklog, JiraSprint } from '../../models/jira-sprint';
-import { AppState, getBacklog, getSprints } from '../../store/reducer';
 import { Store } from '@ngrx/store';
-import { AppActions } from '../../store/actions';
 import { Observable } from 'rxjs';
 import { JiraIssue } from '../../models/jira-issue';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { JiraBacklog, JiraSprint } from '../../models/jira-sprint';
+import { AppActions, AppState, getBacklog, getSprints } from '../../store';
 
 @Component({
   selector: 'pp-board',
