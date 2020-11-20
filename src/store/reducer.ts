@@ -1,6 +1,6 @@
 import { JiraBoard } from '../models/jira-board';
 import { JiraBacklog, JiraSprint } from '../models/jira-sprint';
-import { createReducer, createSelector, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { AppActions } from './actions';
 
 export interface UIState {
