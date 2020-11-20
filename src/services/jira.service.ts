@@ -84,7 +84,9 @@ export class JiraService {
   }
 
   moveIssueToSprint(move: MoveIssueDTO): Observable<MoveIssueDTO> {
-    const url = `${environment.apiServer}/jira/rest/agile/1.0/sprint/${move.toSprint.id}/issue`;
+    const url = move.toSprint
+      ? `${environment.apiServer}/jira/rest/agile/1.0/sprint/${move.toSprint.id}/issue`
+      : `${environment.apiServer}/jira/rest/agile/1.0/backlog/issue`;
     const payload = {
       issues: [move.issue.key]
     };
