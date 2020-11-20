@@ -31,7 +31,7 @@ export const initialState: AppState = {
   },
 };
 
-export function ui(state: UIState, action): UIState {
+export function uiReducer(state: UIState, action): UIState {
   return createReducer(
     initialState.ui,
     on(AppActions.openIssueContextMenu, st => ({...st, contextMenuVisible: true})),
@@ -39,11 +39,10 @@ export function ui(state: UIState, action): UIState {
   )(state, action);
 }
 
-export function board(state: BoardState, action): BoardState {
+export function boardReducer(state: BoardState, action): BoardState {
   return createReducer(
     initialState.board,
     on(AppActions.boardsLoaded, (st, {boards}) => ({...st, boards})),
-    // tslint:disable-next-line:no-shadowed-variable
     on(AppActions.boardLoaded, (st, {board}) => ({...st, current: board})),
     on(AppActions.sprintsLoaded, (st, {sprints}) => ({...st, sprints})),
     on(AppActions.backlogLoaded, (st, {backlog}) => ({...st, backlog})),
