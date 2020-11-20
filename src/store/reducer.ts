@@ -8,7 +8,7 @@ export interface UIState {
 }
 
 export interface BoardState {
-  boards: JiraBoard[];
+  list: JiraBoard[];
   current: JiraBoard;
   sprints: JiraSprint[];
   backlog: JiraBacklog;
@@ -24,7 +24,7 @@ export const initialState: AppState = {
     contextMenuVisible: false
   },
   board: {
-    boards: [],
+    list: [],
     current: null,
     sprints: [],
     backlog: null
@@ -49,7 +49,7 @@ export function boardReducer(state: BoardState, action): BoardState {
   )(state, action);
 }
 
-export const getAllBoards = (state: AppState) => state.board.boards;
+export const getAllBoards = (state: AppState) => state.board.list;
 export const getCurrentBoard = (state: AppState) => state.board.current;
 export const getSprints = (state: AppState) => state.board.sprints;
 export const getBacklog = (state: AppState) => state.board.backlog;
