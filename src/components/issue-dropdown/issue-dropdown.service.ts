@@ -19,7 +19,8 @@ export class IssueDropdownService {
   constructor(private overlay: Overlay) {
   }
 
-  open(event: MouseEvent, sprints: JiraSprint[], issue: JiraIssue, backlog = false): void {
+  open(event: MouseEvent, issue: JiraIssue, sprints: JiraSprint[]): void {
+    const backlog = !issue.fields.sprint;
     event.preventDefault();
     this.close();
     const {x, y} = event;

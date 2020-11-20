@@ -27,6 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppEffects } from '../store/effects';
+import { board, ui } from '../store/reducer';
 
 @NgModule({
   declarations: [
@@ -52,10 +53,10 @@ import { AppEffects } from '../store/effects';
     OverlayModule,
     DragDropModule,
     SocketIoModule.forRoot({url: environment.ws}),
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ui, board}, {}),
     EffectsModule.forRoot([AppEffects]),
     StoreRouterConnectingModule.forRoot(),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production})
   ],
   providers: [
     {
@@ -67,4 +68,5 @@ import { AppEffects } from '../store/effects';
   bootstrap: [AppComponent],
   entryComponents: [IssueDropdownComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

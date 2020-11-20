@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JiraBoard } from '../../models/jira-board';
-import { JiraService } from '../../services/jira.service';
+import { AppState, getAllBoards } from '../../store/reducer';
+import { Store } from '@ngrx/store';
+import { AppActions } from '../../store/actions';
 
 @Component({
   selector: 'pp-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-  boards: Observable<JiraBoard[]>;
+export class HomeComponent {
+  boards$: Observable<JiraBoard[]>;
 
-  constructor(private jira: JiraService) { }
-
-  ngOnInit(): void {
-    this.boards = this.jira.getBoards();
+  constructor(store: Store<AppState>) {
+    store.dispatch(AppActions.loadBoards());
+    this.boards$ = store.select(getAllBoards);
   }
 }

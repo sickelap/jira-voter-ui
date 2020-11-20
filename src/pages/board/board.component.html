@@ -1,4 +1,4 @@
-<pp-sprint *ngFor="let sprint of sprints" [sprint]="sprint">
+<pp-sprint *ngFor="let sprint of sprints$|async" [sprint]="sprint">
   <div cdkDropList [cdkDropListData]="sprint.issues" (cdkDropListDropped)="drop($event)" class="drop-container">
     <pp-issue cdkDrag *ngFor="let issue of sprint.issues" [issue]="issue"
               (contextmenu)="openIssueContextMenu($event, issue)">
@@ -8,9 +8,9 @@
 </pp-sprint>
 
 <pp-backlog>
-  <div cdkDropList [cdkDropListData]="backlog" (cdkDropListDropped)="drop($event)" class="drop-container">
-    <pp-issue cdkDrag *ngFor="let issue of backlog" [issue]="issue"
-              (contextmenu)="openIssueContextMenu($event, issue, true)">
+  <div cdkDropList [cdkDropListData]="backlog$|async" (cdkDropListDropped)="drop($event)" class="drop-container">
+    <pp-issue cdkDrag *ngFor="let issue of backlog$|async" [issue]="issue"
+              (contextmenu)="openIssueContextMenu($event, issue)">
       <div class="drop-placeholder" *cdkDragPlaceholder></div>
     </pp-issue>
   </div>

@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let board of boards|async">
+  <li *ngFor="let board of boards$|async">
     <a [routerLink]="['/board', board.id]">{{ board.name }}</a> ({{ board.type }})
   </li>
 </ul>
