@@ -42,7 +42,7 @@ export function uiReducer(state: UIState, action): UIState {
 export function boardReducer(state: BoardState, action): BoardState {
   return createReducer(
     initialState.board,
-    on(AppActions.boardsLoaded, (st, {boards}) => ({...st, boards})),
+    on(AppActions.boardsLoaded, (st, {boards}) => ({...st, list: boards})),
     on(AppActions.boardLoaded, (st, {board}) => ({...st, current: board})),
     on(AppActions.sprintsLoaded, (st, {sprints}) => ({...st, sprints})),
     on(AppActions.backlogLoaded, (st, {backlog}) => ({...st, backlog})),
