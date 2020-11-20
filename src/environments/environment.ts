@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiServer: 'http://localhost:5000',
+  apiServer: 'http://localhost:4200',
   jiraFieldEstimate: 'customfield_10106',
   ws: 'http://localhost:5000'
 };
